@@ -5,8 +5,26 @@
 			"referenceName": "databaseprueba2",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"schema2": {
+				"type": "string"
+			},
+			"table2": {
+				"type": "string"
+			}
+		},
 		"annotations": [],
 		"type": "AzureSqlTable",
-		"schema": []
+		"schema": [],
+		"typeProperties": {
+			"schema": {
+				"value": "@dataset().schema2",
+				"type": "Expression"
+			},
+			"table": {
+				"value": "@dataset().table2",
+				"type": "Expression"
+			}
+		}
 	}
 }
