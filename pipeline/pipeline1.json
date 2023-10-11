@@ -32,6 +32,11 @@
 				],
 				"userProperties": [],
 				"typeProperties": {
+					"items": {
+						"value": "@variables('table')",
+						"type": "Expression"
+					},
+					"isSequential": true,
 					"activities": [
 						{
 							"name": "Copy data1",
@@ -129,6 +134,12 @@
 			"schema2": {
 				"type": "string",
 				"defaultValue": "finance"
+			}
+		},
+		"variables": {
+			"table": {
+				"type": "String",
+				"defaultValue": "[\"crm_cic_gruponotificacion\", \"vw_cliente\", \"UFTProjInvoiceJourStaging\", \"LogisticsAddressCountryRegionStaging\", \"PaymTermInvoiceStaging\", \"integracion_hub\", \"integracion_dbo\"]"
 			}
 		},
 		"annotations": []
