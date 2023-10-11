@@ -14,7 +14,7 @@
 				"typeProperties": {
 					"variableName": "tabla",
 					"value": {
-						"value": "@json('[\n    \n   {\"schema\":\"dbo\",\n   \"schema2\":\"finance\",\n   \"table\":\"integracion_hub\",\n   \"pk_integracion\":\"id_fec_alta_reg\"\n   },\n\n   {\"schema\":\"dbo\",\n   \"schema2\":\"finance\",\n   \"table\":\"integracion_dbo\",\n   \"pk_integracion\":\"id_fec_alta_reg\"\n   },\n\n   ]')",
+						"value": "@json('[\n    \n   {\"schema\":\"dbo\",\n   \"schema2\":\"finance\",\n   \"table\":\"integracion_hub\",\n   \"pk_integracion\":\"id_fec_alta_reg\"\n   },\n\n   \n   ]')",
 						"type": "Expression"
 					}
 				}
@@ -145,7 +145,7 @@
 		"variables": {
 			"table": {
 				"type": "String",
-				"defaultValue": "[\"integracion_hub\", \"integracion_dbo\"]"
+				"defaultValue": "[\"integracion_hub\"]"
 			},
 			"tabla": {
 				"type": "Array"
