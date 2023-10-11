@@ -107,7 +107,7 @@
 											"type": "Expression"
 										},
 										"table2": {
-											"value": "@item().table2",
+											"value": "@item().table",
 											"type": "Expression"
 										},
 										"urlkeyvault2": {
