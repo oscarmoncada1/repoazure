@@ -53,7 +53,7 @@
 							"typeProperties": {
 								"source": {
 									"type": "AzureSqlSource",
-									"sqlReaderQuery": "SELECT*FROM[finance].[integracion_hub]\r\nWHERE cast(SYNCSTARTDATETIME AS DATE) = CAST(GETDATE() AS DATE);",
+									"sqlReaderQuery": "SELECT*FROM[dbo].[integracion_hub]\r\nWHERE cast(SYNCSTARTDATETIME AS DATE) = CAST(GETDATE() AS DATE);",
 									"queryTimeout": "02:00:00",
 									"partitionOption": "None"
 								},
