@@ -14,7 +14,7 @@
 				"typeProperties": {
 					"variableName": "table",
 					"value": {
-						"value": "@json('[\n    {\"schema\":\"dbo\",\n   \"schema2\":\"finance\",\n   \"table\":\"pendiente\",\n   \"pk_integracion\":\"pendiente\"\n   }]')",
+						"value": "@json('[\n    {\"schema\":\"dbo\",\n   \"schema2\":\"finance\",\n   \"table\":\"crm_cic_gruponotificacion\",\n   \"pk_integracion\":\"cic_gruponotificacionid\"\n   },\n   \n   {\"schema\":\"dbo\",\n   \"schema2\":\"finance\",\n   \"table\":\"vw_cliente\",\n   \"pk_integracion\":\"IdClienteCrm\"\n   },\n   \n   {\"schema\":\"dbo\",\n   \"schema2\":\"finance\",\n   \"table\":\"UFTProjInvoiceJourStaging\",\n   \"pk_integracion\":\"INVOICENUMBER\"\n   },\n\n   {\"schema\":\"dbo\",\n   \"schema2\":\"finance\",\n   \"table\":\"LogisticsAddressCountryRegionStaging\",\n   \"pk_integracion\":\"COUNTRYREGION\"\n   },\n\n   {\"schema\":\"dbo\",\n   \"schema2\":\"finance\",\n   \"table\":\"PaymTermInvoiceStaging\",\n   \"pk_integracion\":\"PAYMTERMID\"\n   },\n\n   {\"schema\":\"dbo\",\n   \"schema2\":\"finance\",\n   \"table\":\"integracion_hub\",\n   \"pk_integracion\":\"id_fec_alta_reg\"\n   },\n\n   {\"schema\":\"dbo\",\n   \"schema2\":\"finance\",\n   \"table\":\"integracion_dbo\",\n   \"pk_integracion\":\"id_fec_alta_reg\"\n   },\n\n   ]')",
 						"type": "Expression"
 					}
 				}
@@ -121,9 +121,14 @@
 				}
 			}
 		],
-		"variables": {
-			"table": {
-				"type": "String"
+		"parameters": {
+			"schema": {
+				"type": "string",
+				"defaultValue": "dbo"
+			},
+			"schema2": {
+				"type": "string",
+				"defaultValue": "finance"
 			}
 		},
 		"annotations": []
