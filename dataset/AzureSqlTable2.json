@@ -1,0 +1,36 @@
+{
+	"name": "AzureSqlTable2",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "databaseprueba2",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"schema2": {
+				"type": "string"
+			},
+			"table2": {
+				"type": "string"
+			},
+			"urlkeyvault2": {
+				"type": "string"
+			},
+			"secretnamekeyvault": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": {
+				"value": "@dataset().schema2",
+				"type": "Expression"
+			},
+			"table": {
+				"value": "@dataset().table2",
+				"type": "Expression"
+			}
+		}
+	}
+}
