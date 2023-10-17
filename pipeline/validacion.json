@@ -59,21 +59,13 @@
 				"inputs": [
 					{
 						"referenceName": "AzureSqlTable1",
-						"type": "DatasetReference",
-						"parameters": {
-							"schema": "dbo",
-							"table": "nombretabla"
-						}
+						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
 					{
 						"referenceName": "AzureSqlTable2",
-						"type": "DatasetReference",
-						"parameters": {
-							"schema2": "finance",
-							"table2": "nombretabla"
-						}
+						"type": "DatasetReference"
 					}
 				]
 			}
