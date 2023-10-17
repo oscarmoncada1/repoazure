@@ -14,7 +14,7 @@
 				"typeProperties": {
 					"variableName": "table",
 					"value": {
-						"value": "@json('[\n    {\"schema\":\"dbo\",\n    \"schema2\":\"finance\",\n    \"table\":\"vw_cliente\",\n    \"pk_integracion\":\"IdCliente\"\n    },\n\n]')",
+						"value": "@json('[\n\n{\"schema\":\"dbo\",\n    \"schema2\":\"finance\",\n    \"table\":\"vw_cliente\",\n    \"pk_integracion\":\"IdClienteCrm\"\n    },\n\n    ]')",
 						"type": "Expression"
 					}
 				}
@@ -62,7 +62,7 @@
 									"upsertSettings": {
 										"useTempDB": true,
 										"keys": [
-											"IdCliente"
+											"IdClienteCrm"
 										]
 									},
 									"sqlWriterUseTableLock": false,
