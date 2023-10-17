@@ -1,0 +1,154 @@
+{
+	"name": "configuracionipc",
+	"properties": {
+		"activities": [
+			{
+				"name": "Set variable1",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "table",
+					"value": {
+						"value": "@json('[\n\n{\"schema\":\"dbo\",\n    \"schema2\":\"finance\",\n    \"table\":\"vw_cliente\",\n    \"pk_integracion\":\"IdClienteCrm\"\n    },\n\n    ]')",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "ForEach1",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Set variable1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@variables('table')",
+						"type": "Expression"
+					},
+					"isSequential": true,
+					"activities": [
+						{
+							"name": "Copy data1",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "AzureSqlSource",
+									"queryTimeout": "02:00:00",
+									"partitionOption": "None"
+								},
+								"sink": {
+									"type": "AzureSqlSink",
+									"writeBehavior": "upsert",
+									"upsertSettings": {
+										"useTempDB": true,
+										"keys": [
+											"IdClienteCrm"
+										]
+									},
+									"sqlWriterUseTableLock": false,
+									"disableMetricsCollection": false
+								},
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "AzureSqlTable1",
+									"type": "DatasetReference",
+									"parameters": {
+										"schema": {
+											"value": "@item().schema",
+											"type": "Expression"
+										},
+										"table": {
+											"value": "@item().table",
+											"type": "Expression"
+										},
+										"urlkeyvault": {
+											"value": "https://kv-gestorclaves1.vault.azure.net/",
+											"type": "Expression"
+										},
+										"secretnamevault": {
+											"value": "connectiondatabaseresources",
+											"type": "Expression"
+										}
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "AzureSqlTable2",
+									"type": "DatasetReference",
+									"parameters": {
+										"schema2": {
+											"value": "@item().schema2",
+											"type": "Expression"
+										},
+										"table2": {
+											"value": "@item().table",
+											"type": "Expression"
+										},
+										"urlkeyvault2": {
+											"value": "https://kv-gestorclaves1.vault.azure.net/",
+											"type": "Expression"
+										},
+										"secretnamekeyvault": {
+											"value": "connectiondatabaseprueba2\n",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"schema": {
+				"type": "string",
+				"defaultValue": "dbo"
+			},
+			"schema2": {
+				"type": "string",
+				"defaultValue": "finance"
+			}
+		},
+		"variables": {
+			"table": {
+				"type": "Array",
+				"defaultValue": [
+					"vw_cliente"
+				]
+			}
+		},
+		"annotations": []
+	}
+}
