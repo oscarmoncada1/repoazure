@@ -14,7 +14,7 @@
 				"typeProperties": {
 					"variableName": "table",
 					"value": {
-						"value": "@json('[\n\n{\"schema\":\"dbo\",\n    \"schema2\":\"finance\",\n    \"table\":\"vw_cliente\",\n    \"pk_integracion\":\"IdClienteCrm\"\n    },\n\n    ]')",
+						"value": "@json('[\n\n{\"schema\":\"dbo\",\n    \"schema2\":\"finance\",\n    \"table\":\"crm_cic_configuracionipc\",\n    \"pk_integracion\":\"cic_ano\"\n    },\n\n    ]')",
 						"type": "Expression"
 					}
 				}
@@ -62,7 +62,7 @@
 									"upsertSettings": {
 										"useTempDB": true,
 										"keys": [
-											"IdClienteCrm"
+											"cic_ano"
 										]
 									},
 									"sqlWriterUseTableLock": false,
@@ -145,7 +145,7 @@
 			"table": {
 				"type": "Array",
 				"defaultValue": [
-					"vw_cliente"
+					"crm_cic_configuracionipc"
 				]
 			}
 		},
