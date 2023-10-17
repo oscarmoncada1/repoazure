@@ -143,8 +143,10 @@
 		},
 		"variables": {
 			"table": {
-				"type": "String",
-				"defaultValue": "['vw_cliente]"
+				"type": "Array",
+				"defaultValue": [
+					"vw_cliente"
+				]
 			}
 		},
 		"annotations": []
