@@ -3,127 +3,71 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Set variable1",
-				"type": "SetVariable",
+				"name": "Validation1",
+				"type": "Validation",
 				"dependsOn": [],
-				"policy": {
-					"secureOutput": false,
-					"secureInput": false
-				},
 				"userProperties": [],
 				"typeProperties": {
-					"variableName": "tabla",
-					"value": {
-						"value": "@json('[\n    \n   {\"schema\":\"dbo\",\n   \"schema2\":\"finance\",\n   \"table\":\"integracion_hub\",\n   \"pk_integracion\":\"id_fec_alta_reg\"\n   },\n\n\n   {\"schema\":\"dbo\",\n   \"schema2\":\"finance\",\n   \"table\":\"vw_cliente\",\n   \"pk_integracion\":\"idCliente\"\n   },\n\n\n   {\"schema\":\"dbo\",\n   \"schema2\":\"finance\",\n   \"table\":\"crm_cic_gruponotificacion\",\n   \"pk_integracion\":\"cic_gruponotificacionid\"\n   },\n\n\n   {\"schema\":\"dbo\",\n   \"schema2\":\"finance\",\n   \"table\":\"crm_cic_configuracionipc\",\n   \"pk_integracion\":\"cic_ano\"\n   },\n\n   ]')",
-						"type": "Expression"
-					}
+					"dataset": {
+						"referenceName": "dimension_fechas",
+						"type": "DatasetReference"
+					},
+					"timeout": "0.00:02:00",
+					"sleep": 10
 				}
 			},
 			{
-				"name": "ForEach1",
-				"type": "ForEach",
+				"name": "Copy data2",
+				"type": "Copy",
 				"dependsOn": [
 					{
-						"activity": "Set variable1",
+						"activity": "Validation1",
 						"dependencyConditions": [
 							"Succeeded"
 						]
 					}
 				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
 				"userProperties": [],
 				"typeProperties": {
-					"items": {
-						"value": "@variables('tabla')",
-						"type": "Expression"
+					"source": {
+						"type": "AzureSqlSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
 					},
-					"isSequential": true,
-					"activities": [
-						{
-							"name": "Copy data1",
-							"type": "Copy",
-							"dependsOn": [],
-							"policy": {
-								"timeout": "0.12:00:00",
-								"retry": 0,
-								"retryIntervalInSeconds": 30,
-								"secureOutput": false,
-								"secureInput": false
-							},
-							"userProperties": [],
-							"typeProperties": {
-								"source": {
-									"type": "AzureSqlSource",
-									"queryTimeout": "02:00:00",
-									"partitionOption": "None"
-								},
-								"sink": {
-									"type": "AzureSqlSink",
-									"writeBehavior": "insert",
-									"sqlWriterUseTableLock": false,
-									"tableOption": "autoCreate",
-									"disableMetricsCollection": false
-								},
-								"enableStaging": false,
-								"translator": {
-									"type": "TabularTranslator",
-									"typeConversion": true,
-									"typeConversionSettings": {
-										"allowDataTruncation": true,
-										"treatBooleanAsNumber": false
-									}
-								}
-							},
-							"inputs": [
-								{
-									"referenceName": "AzureSqlTable1",
-									"type": "DatasetReference",
-									"parameters": {
-										"schema": {
-											"value": "@item().schema",
-											"type": "Expression"
-										},
-										"table": {
-											"value": "@item().table",
-											"type": "Expression"
-										},
-										"urlkeyvault": {
-											"value": "https://kv-gestorclaves1.vault.azure.net/",
-											"type": "Expression"
-										},
-										"secretnamevault": {
-											"value": "connectiondatabaseresources",
-											"type": "Expression"
-										}
-									}
-								}
-							],
-							"outputs": [
-								{
-									"referenceName": "AzureSqlTable2",
-									"type": "DatasetReference",
-									"parameters": {
-										"schema2": {
-											"value": "@item().schema2",
-											"type": "Expression"
-										},
-										"table2": {
-											"value": "@item().table",
-											"type": "Expression"
-										},
-										"urlkeyvault2": {
-											"value": "https://kv-gestorclaves1.vault.azure.net/",
-											"type": "Expression"
-										},
-										"secretnamekeyvault": {
-											"value": "connectiondatabaseprueba2",
-											"type": "Expression"
-										}
-									}
-								}
-							]
+					"sink": {
+						"type": "AzureSqlSink",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
 						}
-					]
-				}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "AzureSqlTable1",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "AzureSqlTable2",
+						"type": "DatasetReference"
+					}
+				]
 			}
 		],
 		"parameters": {
