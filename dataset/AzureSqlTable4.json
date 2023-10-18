@@ -1,0 +1,20 @@
+{
+	"name": "AzureSqlTable4",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "databaseprueba2",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"schema4": {
+				"type": "string"
+			},
+			"table4": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": []
+	}
+}
