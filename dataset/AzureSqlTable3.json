@@ -1,0 +1,90 @@
+{
+	"name": "AzureSqlTable3",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "sqlprimerservidor",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"schema3": {
+				"type": "string"
+			},
+			"table3": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "Codigo",
+				"type": "uniqueidentifier"
+			},
+			{
+				"name": "IdClienteCrm",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "CodigoCanton",
+				"type": "uniqueidentifier"
+			},
+			{
+				"name": "CodigoGrupoCorporativo",
+				"type": "uniqueidentifier"
+			},
+			{
+				"name": "CodigoPais",
+				"type": "uniqueidentifier"
+			},
+			{
+				"name": "CodigoKam",
+				"type": "uniqueidentifier"
+			},
+			{
+				"name": "RazonSocial",
+				"type": "nvarchar"
+			},
+			{
+				"name": "NumeroTributario",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PorcentajeDescuentoMRC",
+				"type": "decimal",
+				"precision": 38,
+				"scale": 2
+			},
+			{
+				"name": "PorcentajeDescuentoNRC",
+				"type": "decimal",
+				"precision": 38,
+				"scale": 2
+			},
+			{
+				"name": "EsProveedor",
+				"type": "bit"
+			},
+			{
+				"name": "UsuarioUltimaModificacion",
+				"type": "uniqueidentifier"
+			},
+			{
+				"name": "FechaUltimaModificacion",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "ts_carga",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "recliente"
+		}
+	}
+}
