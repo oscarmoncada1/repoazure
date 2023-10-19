@@ -3,126 +3,60 @@
 	"properties": {
 		"activities": [
 			{
+				"name": "Lookup1",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.00:10:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true,
+							"modifiedDatetimeStart": "2023-10-19T00:00:00.000Z",
+							"modifiedDatetimeEnd": "2023-10-19T00:00:00.000Z",
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"dataset": {
+						"referenceName": "removies",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
 				"name": "Set variable1",
 				"type": "SetVariable",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "Lookup1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"secureOutput": false,
 					"secureInput": false
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"variableName": "tabla",
+					"variableName": "archivocsvmetadata",
 					"value": {
-						"value": "@json('[\n    \n   {\"schema\":\"dbo\",\n   \"schema2\":\"finance\",\n   \"table\":\"integracion_hub\",\n   \"pk_integracion\":\"id_fec_alta_reg\"\n   },\n\n\n   {\"schema\":\"dbo\",\n   \"schema2\":\"finance\",\n   \"table\":\"vw_cliente\",\n   \"pk_integracion\":\"idCliente\"\n   },\n\n\n   {\"schema\":\"dbo\",\n   \"schema2\":\"finance\",\n   \"table\":\"crm_cic_gruponotificacion\",\n   \"pk_integracion\":\"cic_gruponotificacionid\"\n   },\n\n\n   {\"schema\":\"dbo\",\n   \"schema2\":\"finance\",\n   \"table\":\"crm_cic_configuracionipc\",\n   \"pk_integracion\":\"cic_ano\"\n   },\n\n   ]')",
+						"value": "SELECT COUNT(*) AS RecordCount FROM @dataset().removies",
 						"type": "Expression"
 					}
-				}
-			},
-			{
-				"name": "ForEach1",
-				"type": "ForEach",
-				"dependsOn": [
-					{
-						"activity": "Set variable1",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"userProperties": [],
-				"typeProperties": {
-					"items": {
-						"value": "@variables('tabla')",
-						"type": "Expression"
-					},
-					"isSequential": true,
-					"activities": [
-						{
-							"name": "Copy data1",
-							"type": "Copy",
-							"dependsOn": [],
-							"policy": {
-								"timeout": "0.12:00:00",
-								"retry": 0,
-								"retryIntervalInSeconds": 30,
-								"secureOutput": false,
-								"secureInput": false
-							},
-							"userProperties": [],
-							"typeProperties": {
-								"source": {
-									"type": "AzureSqlSource",
-									"queryTimeout": "02:00:00",
-									"partitionOption": "None"
-								},
-								"sink": {
-									"type": "AzureSqlSink",
-									"writeBehavior": "insert",
-									"sqlWriterUseTableLock": false,
-									"tableOption": "autoCreate",
-									"disableMetricsCollection": false
-								},
-								"enableStaging": false,
-								"translator": {
-									"type": "TabularTranslator",
-									"typeConversion": true,
-									"typeConversionSettings": {
-										"allowDataTruncation": true,
-										"treatBooleanAsNumber": false
-									}
-								}
-							},
-							"inputs": [
-								{
-									"referenceName": "AzureSqlTable1",
-									"type": "DatasetReference",
-									"parameters": {
-										"schema": {
-											"value": "@item().schema",
-											"type": "Expression"
-										},
-										"table": {
-											"value": "@item().table",
-											"type": "Expression"
-										},
-										"urlkeyvault": {
-											"value": "https://kv-gestorclaves1.vault.azure.net/",
-											"type": "Expression"
-										},
-										"secretnamevault": {
-											"value": "connectiondatabaseresources",
-											"type": "Expression"
-										}
-									}
-								}
-							],
-							"outputs": [
-								{
-									"referenceName": "AzureSqlTable2",
-									"type": "DatasetReference",
-									"parameters": {
-										"schema2": {
-											"value": "@item().schema2",
-											"type": "Expression"
-										},
-										"table2": {
-											"value": "@item().table",
-											"type": "Expression"
-										},
-										"urlkeyvault2": {
-											"value": "https://kv-gestorclaves1.vault.azure.net/",
-											"type": "Expression"
-										},
-										"secretnamekeyvault": {
-											"value": "connectiondatabaseprueba2",
-											"type": "Expression"
-										}
-									}
-								}
-							]
-						}
-					]
 				}
 			}
 		],
@@ -138,11 +72,13 @@
 		},
 		"variables": {
 			"table": {
-				"type": "String",
-				"defaultValue": "[\"integracion_hub\", \"vw_cliente\",  \"crm_cic_gruponotificacion\", \"crm_cic_configuracionipc\"]"
+				"type": "String"
 			},
 			"tabla": {
 				"type": "Array"
+			},
+			"archivocsvmetadata": {
+				"type": "String"
 			}
 		},
 		"annotations": []
