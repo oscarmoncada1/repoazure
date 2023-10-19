@@ -1,0 +1,29 @@
+{
+	"name": "dimension_fechas2",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "dimension_fechas.csv",
+				"folderPath": "Datasets",
+				"container": "contenedor1"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "fecha_id;fecha;year;mes;dia;year_mes;year_semana",
+				"type": "String"
+			}
+		]
+	}
+}

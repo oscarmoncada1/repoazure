@@ -83,8 +83,14 @@
 			}
 		],
 		"typeProperties": {
-			"schema": "dbo",
-			"table": "recliente"
+			"schema": {
+				"value": "@dataset().schema3",
+				"type": "Expression"
+			},
+			"table": {
+				"value": "@dataset().table3",
+				"type": "Expression"
+			}
 		}
 	}
 }
