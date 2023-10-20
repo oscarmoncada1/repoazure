@@ -1,5 +1,5 @@
 {
-	"name": "examenfinal",
+	"name": "examenfinal2",
 	"properties": {
 		"activities": [
 			{
@@ -96,8 +96,8 @@
 				}
 			},
 			{
-				"name": "iterarregistrosCSV",
-				"type": "ForEach",
+				"name": "EsperarEntreIteraciones",
+				"type": "Wait",
 				"dependsOn": [
 					{
 						"activity": "buscararchivoCSV",
@@ -108,84 +108,7 @@
 				],
 				"userProperties": [],
 				"typeProperties": {
-					"items": {
-						"value": "@activity('buscararchivoCSV').output.count",
-						"type": "Expression"
-					},
-					"activities": [
-						{
-							"name": "CopiarRegistroCSVaSQL",
-							"type": "Copy",
-							"dependsOn": [],
-							"policy": {
-								"timeout": "0.12:00:00",
-								"retry": 0,
-								"retryIntervalInSeconds": 30,
-								"secureOutput": false,
-								"secureInput": false
-							},
-							"userProperties": [],
-							"typeProperties": {
-								"source": {
-									"type": "DelimitedTextSource",
-									"storeSettings": {
-										"type": "AzureBlobStorageReadSettings",
-										"recursive": true,
-										"enablePartitionDiscovery": false
-									},
-									"formatSettings": {
-										"type": "DelimitedTextReadSettings"
-									}
-								},
-								"sink": {
-									"type": "AzureSqlSink",
-									"writeBehavior": "insert",
-									"sqlWriterUseTableLock": false
-								},
-								"enableStaging": false,
-								"translator": {
-									"type": "TabularTranslator",
-									"mappings": [
-										{
-											"source": {
-												"name": "movieId"
-											},
-											"sink": {
-												"name": "movieid"
-											}
-										}
-									],
-									"typeConversion": true,
-									"typeConversionSettings": {
-										"allowDataTruncation": true,
-										"treatBooleanAsNumber": false
-									}
-								}
-							},
-							"inputs": [
-								{
-									"referenceName": "removies",
-									"type": "DatasetReference"
-								}
-							],
-							"outputs": [
-								{
-									"referenceName": "AzureSqlTable4",
-									"type": "DatasetReference",
-									"parameters": {
-										"schema4": {
-											"value": "@item()",
-											"type": "Expression"
-										},
-										"table4": {
-											"value": "@item()",
-											"type": "Expression"
-										}
-									}
-								}
-							]
-						}
-					]
+					"waitTimeInSeconds": 5
 				}
 			}
 		],
